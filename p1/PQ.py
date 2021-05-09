@@ -62,7 +62,6 @@ for line in file1:
     elif line[0] == 'extract':
         Extract_Max(heap)
     elif line[0] == 'quit':
-        print(heap)
         while heap:
             file2.write(Extract_Max(heap) + " ")
         
