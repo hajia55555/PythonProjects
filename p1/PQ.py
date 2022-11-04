@@ -1,13 +1,14 @@
-#Implementing a priority queue with a Max-Binary Heap
-#Adding a integer key into a Binary Heap that points to a value in a dictionary
+# Implementing a priority queue with a Max-Binary Heap
+# Adding a integer key into a Binary Heap that points to a value in a dictionary
 
-#Insert a key into a heap
-#Inserts its (key,value) pair into a dictionary
+# Insert a key into a heap
+# Inserts its (key,value) pair into a dictionary
 def Insert(heap, key, value):
     heap.append(key)
     dict[key] = value
 
 
+# Sorting the list "heap" 
 def heapify(heap, heapsize, i):
     largest = i
     l = 2 * i + 1
@@ -24,20 +25,24 @@ def heapify(heap, heapsize, i):
         heapify(heap, heapsize, largest)
 
 
-#Returning maximum element from heap
-def Maximum(heap):
+# Creating the Max-Heap
+def BuildMaxHeap(heap):
     n = len(heap)
 
     for i in range(n//2 - 1, -1, -1):
         heapify(heap, n, i)
-    
+
+
+# Returning maximum element from queue
+def Maximum(heap):    
     max = heap[0]
     return dict[max]
 
-#delete an element from the heap
+
+# Delete the value in the front of the queue (heap)
 def Extract_Max(heap):
     n = len(heap) - 1
-    Maximum(heap)
+    BuildMaxHeap(heap)
 
     max = heap[0]
 
@@ -47,24 +52,28 @@ def Extract_Max(heap):
     
     return dict[max]
 
+
 heap = []
 dict = {}
 
 
-file1 = open("input.txt",'r')
-file2 = open("output.txt", 'w')
-for line in file1:
+inputFile = open("input.txt",'r')
+outputFile = open("output.txt", 'w')
+
+for line in inputFile:
     line = line.split()
     if line[0] == 'insert':
         Insert(heap, int(line[2]), line[1])
     elif line[0] == 'max':
-        file2.write(Maximum(heap) + "\n")
-    elif line[0] == 'extract':
+        BuildMaxHeap(heap)
+        outputFile.write(Maximum(heap) + "\n")
+    elif line[0] == 'pop':
         Extract_Max(heap)
     elif line[0] == 'quit':
         while heap:
-            file2.write(Extract_Max(heap) + " ")
-        
+            outputFile.write(Extract_Max(heap) + " ")
+        outputFile.write("\n")   
 
-file1.close()
-file2.close()
+
+inputFile.close()
+outputFile.close()
